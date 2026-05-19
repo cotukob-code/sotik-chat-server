@@ -9,7 +9,13 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
 
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ noServer: true });
+
+server.on('upgrade', (req, socket, head) => {
+    wss.handleUpgrade(req, socket, head, (ws) => {
+        wss.emit('connection', ws, req);
+    });
+});
 
 // Храним сообщения
 const messages = [];
