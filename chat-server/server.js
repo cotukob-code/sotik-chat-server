@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
     res.send('WebSocket server is running');
 });
 
+app.get('/ws', (req, res) => {
+    res.send('WebSocket endpoint');
+});
+
 const server = http.createServer(app);
 const wss = new WebSocketServer({ noServer: true });
 
